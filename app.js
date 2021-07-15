@@ -7,10 +7,36 @@ const resultWrapper = document.querySelector('.resultWrapper')
 const firstFist = document.querySelector('#firstFist')
 const secondFist = document.querySelector('#secondFist')
 const row2 = document.querySelector('.row2')
+const row = document.querySelector('.row')
 const result = document.getElementById('result')
+const header = document.querySelector('.header')
+const choiceWrapper = document.querySelector('.choiceWrapper')
 
 let choiceMadeByUser
 let choiceMadeByComputer
+
+/*
+ header
+ choiceWrapper
+ row
+*/
+
+let isLess
+window.addEventListener('resize', e => {
+  if (window.innerWidth <= 560) {
+    console.log('less than 560')
+    header.style.flexDirection = 'column'
+    choiceWrapper.style.flexDirection = 'column'
+    row.style.flexDirection = 'column'
+    isLess = true
+  } else {
+    console.log('more than 560')
+    header.style.flexDirection = 'row'
+    choiceWrapper.style.flexDirection = 'row'
+    row.style.flexDirection = 'row'
+    isLess = false
+  }
+})
 
 const whoWins = (user, computer) => {
   if (user == computer) {
@@ -70,7 +96,12 @@ for (let i = 0; i < choices.length; i++) {
       } else {
         result.innerHTML = 'YOU LOSE 🤡'
       }
-      row2.style.transform = 'translateY(220px)'
+      row2.style.opacity = '1.0'
+      if (isLess) {
+        row2.style.transform = 'translateY(400px)'
+      } else {
+        row2.style.transform = 'translateY(220px)'
+      }
       console.log(result)
     }, 2500)
   })
@@ -105,5 +136,6 @@ playAgainButton.addEventListener('click', e => {
   firstFist.classList.remove('animationForFirstFist')
   secondFist.classList.remove('animationForSecondFist')
 
+  row2.style.opacity = '0.0'
   row2.style.transform = 'translateY(0px)'
 })
